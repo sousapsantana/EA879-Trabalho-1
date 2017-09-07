@@ -21,8 +21,14 @@ void yyerror(char *);
 }
 
 ([0-9]*|[0-9].[0-9]+)	{
-	return FLOAT;
+	for (int i = 0; i < yyleng; i++){
+		yylval.strval[i] = yytext[i];
+	}
+	yylval.strval[yyleng] = '\0';
+	printf ("Achei fator: %s\n", yylval.strval);
+	return FATOR;
 }
+
 
 [a-zA-Z0-9\.]+	{
 	for (int i = 0; i < yyleng; i++){

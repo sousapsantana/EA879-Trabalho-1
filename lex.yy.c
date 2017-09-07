@@ -777,12 +777,17 @@ case 3:
 YY_RULE_SETUP
 #line 23 "./src/imageprocessing.l"
 {
-	return FLOAT;
+	for (int i = 0; i < yyleng; i++){
+		yylval.strval[i] = yytext[i];
+	}
+	yylval.strval[yyleng] = '\0';
+	printf ("Achei fator: %s\n", yylval.strval);
+	return FATOR;
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 27 "./src/imageprocessing.l"
+#line 33 "./src/imageprocessing.l"
 {
 	for (int i = 0; i < yyleng; i++){
 		yylval.strval[i] = yytext[i];
@@ -794,35 +799,35 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 36 "./src/imageprocessing.l"
+#line 42 "./src/imageprocessing.l"
 {
 	return ACOL;
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 40 "./src/imageprocessing.l"
+#line 46 "./src/imageprocessing.l"
 {
 	return FCOL;
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 44 "./src/imageprocessing.l"
+#line 50 "./src/imageprocessing.l"
 {
 	return PRODUTO;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 48 "./src/imageprocessing.l"
+#line 54 "./src/imageprocessing.l"
 {
 	return DIVISAO;
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 52 "./src/imageprocessing.l"
+#line 58 "./src/imageprocessing.l"
 {
 	return IGUAL;
 }
@@ -830,19 +835,19 @@ YY_RULE_SETUP
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 56 "./src/imageprocessing.l"
+#line 62 "./src/imageprocessing.l"
 {
 	return EOL;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 60 "./src/imageprocessing.l"
+#line 66 "./src/imageprocessing.l"
 ;
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 62 "./src/imageprocessing.l"
+#line 68 "./src/imageprocessing.l"
 {
 	printf("**%s**\n", yytext);
 	yyerror("Token nao reconhecido!\n");
@@ -850,10 +855,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 67 "./src/imageprocessing.l"
+#line 73 "./src/imageprocessing.l"
 ECHO;
 	YY_BREAK
-#line 857 "lex.yy.c"
+#line 862 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1854,7 +1859,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 67 "./src/imageprocessing.l"
+#line 73 "./src/imageprocessing.l"
 
 
 

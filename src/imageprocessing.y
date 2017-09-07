@@ -1,7 +1,9 @@
 %{
 #include <stdio.h>
+#include <stdlib.h>
 #include "imageprocessing.h"
 #include <FreeImage.h>
+#include <math.h>
 
 void yyerror(char *c);
 int yylex(void);
@@ -10,11 +12,10 @@ float vmax;
 %}
 %union {
   char    strval[50];
-  int     ival;
+  int     ival;   
 }
-%token <strval> STRING
-%token <ival> VAR IGUAL EOL ASPA ACOL FCOL
-%token FLOAT 
+%token <strval> STRING FATOR
+%token <ival> VAR IGUAL EOL ASPA ACOL FCOL 
 %left SOMA PRODUTO DIVISAO
 
 %%
@@ -32,18 +33,23 @@ EXPRESSAO:
         salvar_imagem($1, &I);
         liberar_imagem(&I);
     }
-    | STRING IGUAL STRING PRODUTO FLOAT {
-    	printf ("produto\n");
+    | STRING IGUAL STRING PRODUTO FATOR {
+    	imagem I = abrir_imagem ($3);
+    	brilho_imagem (&I, atof($5));
+    	salvar_imagem ($1, &I);
+    	liberar_imagem (&I);
     }
-    | STRING IGUAL STRING DIVISAO FLOAT {
-    	printf ("divisao\n");
+    | STRING IGUAL STRING DIVISAO FATOR {
+    	imagem I = abrir_imagem ($3);    	
+    	brilho_imagem (&I, 1/atof($5));
+    	salvar_imagem ($1, &I);
+    	liberar_imagem (&I);
     }    
     | ACOL STRING FCOL {
-    	printf ("maximo\n");
     	imagem I = abrir_imagem ($2);
     	vmax = vmax_imagem (&I);
     	printf ("Valor máximo: %.2f\n", vmax);
-    }
+    } 
 
     ;
 
@@ -57,5 +63,4 @@ int main() {
   FreeImage_Initialise(0);
   yyparse();
   return 0;
-
 }

@@ -46,13 +46,13 @@ extern int yydebug;
   enum yytokentype
   {
     STRING = 258,
-    VAR = 259,
-    IGUAL = 260,
-    EOL = 261,
-    ASPA = 262,
-    ACOL = 263,
-    FCOL = 264,
-    FLOAT = 265,
+    FATOR = 259,
+    VAR = 260,
+    IGUAL = 261,
+    EOL = 262,
+    ASPA = 263,
+    ACOL = 264,
+    FCOL = 265,
     SOMA = 266,
     PRODUTO = 267,
     DIVISAO = 268
@@ -60,13 +60,13 @@ extern int yydebug;
 #endif
 /* Tokens.  */
 #define STRING 258
-#define VAR 259
-#define IGUAL 260
-#define EOL 261
-#define ASPA 262
-#define ACOL 263
-#define FCOL 264
-#define FLOAT 265
+#define FATOR 259
+#define VAR 260
+#define IGUAL 261
+#define EOL 262
+#define ASPA 263
+#define ACOL 264
+#define FCOL 265
 #define SOMA 266
 #define PRODUTO 267
 #define DIVISAO 268
@@ -76,10 +76,10 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 11 "./src/imageprocessing.y" /* yacc.c:1909  */
+#line 13 "./src/imageprocessing.y" /* yacc.c:1909  */
 
   char    strval[50];
-  int     ival;
+  int     ival;   
 
 #line 85 "y.tab.h" /* yacc.c:1909  */
 };
