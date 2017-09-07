@@ -5,6 +5,7 @@
 
 void yyerror(char *c);
 int yylex(void);
+float vmax;
 
 %}
 %union {
@@ -38,7 +39,10 @@ EXPRESSAO:
     	printf ("divisao\n");
     }    
     | ACOL STRING FCOL {
-    	printf ("brilho\n");
+    	printf ("maximo\n");
+    	imagem I = abrir_imagem ($2);
+    	vmax = vmax_imagem (&I);
+    	printf ("Valor máximo: %.2f\n", vmax);
     }
 
     ;
