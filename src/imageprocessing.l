@@ -11,35 +11,58 @@ void yyerror(char *);
 
 %%
 
-[a-z]  {
-        yylval.ival = yytext[0] - 'a';
-        return VAR;
-       }
+[a-z]	{
+	yylval.ival = yytext[0] - 'a';
+    return VAR;
+}
 
+\"	{
+	return ASPA; 
+}
 
-\" { return ASPA; }
+([0-9]*|[0-9].[0-9]+)	{
+	return FLOAT;
+}
 
-[a-zA-Z0-9\.]+  {
-        for (int i = 0; i < yyleng; i++ )
-          yylval.strval[i] = yytext[i];
+[a-zA-Z0-9\.]+	{
+	for (int i = 0; i < yyleng; i++){
+		yylval.strval[i] = yytext[i];
+	}
+	yylval.strval[yyleng] = '\0';
+    printf ("Achei nome: %s\n", yylval.strval);
+    return STRING;
+}
 
-        yylval.strval[yyleng] = '\0';
-        printf ("Achei nome: %s\n", yylval.strval);
-        return STRING;
-       }
+\[	{
+	return ACOL;
+}
 
-[=]     {
-          return IGUAL;
-        }
+\]	{
+	return FCOL;
+}
 
-\n   {
-         return EOL;
-       }
+[*]	{
+	return PRODUTO;
+}
+
+[/]	{
+	return DIVISAO;
+}
+
+[=]	{
+	return IGUAL;
+}
+
+\n 	{
+	return EOL;
+}
 
 [ \t]+ ;
 
-.     {printf("**%s**\n", yytext);
-yyerror("Token nao reconhecido!\n");}
+.	{
+	printf("**%s**\n", yytext);
+	yyerror("Token nao reconhecido!\n");
+}
 
 %%
 

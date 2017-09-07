@@ -50,7 +50,12 @@ extern int yydebug;
     IGUAL = 260,
     EOL = 261,
     ASPA = 262,
-    SOMA = 263
+    ACOL = 263,
+    FCOL = 264,
+    FLOAT = 265,
+    SOMA = 266,
+    PRODUTO = 267,
+    DIVISAO = 268
   };
 #endif
 /* Tokens.  */
@@ -59,7 +64,12 @@ extern int yydebug;
 #define IGUAL 260
 #define EOL 261
 #define ASPA 262
-#define SOMA 263
+#define ACOL 263
+#define FCOL 264
+#define FLOAT 265
+#define SOMA 266
+#define PRODUTO 267
+#define DIVISAO 268
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -71,7 +81,7 @@ union YYSTYPE
   char    strval[50];
   int     ival;
 
-#line 75 "y.tab.h" /* yacc.c:1909  */
+#line 85 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

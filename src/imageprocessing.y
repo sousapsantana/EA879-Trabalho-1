@@ -12,8 +12,9 @@ int yylex(void);
   int     ival;
 }
 %token <strval> STRING
-%token <ival> VAR IGUAL EOL ASPA
-%left SOMA
+%token <ival> VAR IGUAL EOL ASPA ACOL FCOL
+%token FLOAT 
+%left SOMA PRODUTO DIVISAO
 
 %%
 
@@ -29,7 +30,16 @@ EXPRESSAO:
         printf("Li imagem %d por %d\n", I.width, I.height);
         salvar_imagem($1, &I);
         liberar_imagem(&I);
-                          }
+    }
+    | STRING IGUAL STRING PRODUTO FLOAT {
+    	printf ("produto\n");
+    }
+    | STRING IGUAL STRING DIVISAO FLOAT {
+    	printf ("divisao\n");
+    }    
+    | ACOL STRING FCOL {
+    	printf ("brilho\n");
+    }
 
     ;
 
