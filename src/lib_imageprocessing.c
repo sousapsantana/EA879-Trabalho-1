@@ -69,9 +69,9 @@ void salvar_imagem(char *nome_do_arquivo, imagem *I) {
       int idx;
 
       idx = i + (j*I->width);
-      color.rgbRed = I->r[idx];
-      color.rgbGreen = I->g[idx];
-      color.rgbBlue = I->b[idx];
+      color.rgbRed = (float)I->r[idx];
+      color.rgbGreen = (float)I->g[idx];
+      color.rgbBlue = (float)I->b[idx];
 
       FreeImage_SetPixelColor(bitmapOut, i, j, &color);
     }
@@ -89,7 +89,7 @@ void brilho_imagem (imagem *I, float fator) {
 			idx = i + (j*I->width);
 			I->r[idx] = I->r[idx] * fator;
 			I->g[idx] = I->g[idx] * fator;
-			I->b[idx] = I->b[idx] * fator;
+			I->b[idx] = I->b[idx] * fator;			
 		}
 	}
 }
@@ -97,22 +97,37 @@ void brilho_imagem (imagem *I, float fator) {
 void vmax_imagem (imagem *I, float vmax[3]){
 
 	int i, j, idx;
-	vmax[0] = 0; 
-	vmax[1] = 0;
-	vmax[2] = 0;
+	vmax[0] = 0.0; 
+	vmax[1] = 0.0;
+	vmax[2] = 0.0;
 	
 	for (i=0; i<I->width; i++) {
 		for (j=0; j<I->height; j++){
-			idx = i + (j*I->width);
-			if (I->r[idx] > vmax[0]){
+			idx = i + (j*I->width);			
+			if (I->r[idx] >= vmax[0]){
 				vmax[0] = I->r[idx];
 			}
-			if (I->g[idx] > vmax[1]){
+			if (I->g[idx] >= vmax[1]){
 				vmax[1] = I->g[idx];
 			}
-			if (I->b[idx] > vmax[2]){
+			if (I->b[idx] >= vmax[2]){
 				vmax[2] = I->b[idx];
-			}
+			}			
 		}
 	}	
+}
+
+void imprime (imagem *I){
+
+	int i, j, idx;
+
+	for (i=0; i<I->width; i++) {
+		for (j=0; j<I->height; j++){
+			idx = i + (j*I->width);			
+			if (I->r[idx] - (int)I->r[idx] != 0 | I->g[idx] - (int)I->g[idx] != 0 | I->b[idx] - (int)I->b[idx] != 0){
+				printf ("%f %f %f\n", I->r[idx], I->g[idx], I->b[idx]);
+			}			
+		}
+	}
+	printf ("fim de impressão\n");
 }
