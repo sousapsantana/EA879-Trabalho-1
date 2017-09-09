@@ -87,31 +87,32 @@ void brilho_imagem (imagem *I, float fator) {
 	for (i=0; i<I->width; i++) {
 		for (j=0; j<I->height; j++){
 			idx = i + (j*I->width);
-			I->r[idx] *= fator;
-			I->g[idx] *= fator;
-			I->b[idx] *= fator;
+			I->r[idx] = I->r[idx] * fator;
+			I->g[idx] = I->g[idx] * fator;
+			I->b[idx] = I->b[idx] * fator;
 		}
 	}
 }
 
-float vmax_imagem (imagem *I){
+void vmax_imagem (imagem *I, float vmax[3]){
 
 	int i, j, idx;
-	float vmax = 0;
+	vmax[0] = 0; 
+	vmax[1] = 0;
+	vmax[2] = 0;
 	
 	for (i=0; i<I->width; i++) {
 		for (j=0; j<I->height; j++){
 			idx = i + (j*I->width);
-			if (I->r[idx] > vmax){
-				vmax = I->r[idx];
+			if (I->r[idx] > vmax[0]){
+				vmax[0] = I->r[idx];
 			}
-			if (I->g[idx] > vmax){
-				vmax = I->g[idx];
+			if (I->g[idx] > vmax[1]){
+				vmax[1] = I->g[idx];
 			}
-			if (I->b[idx] > vmax){
-				vmax = I->b[idx];
+			if (I->b[idx] > vmax[2]){
+				vmax[2] = I->b[idx];
 			}
 		}
-	}
-	return vmax;
+	}	
 }

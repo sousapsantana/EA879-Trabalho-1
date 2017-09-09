@@ -3,11 +3,10 @@
 #include <stdlib.h>
 #include "imageprocessing.h"
 #include <FreeImage.h>
-#include <math.h>
 
 void yyerror(char *c);
 int yylex(void);
-float vmax;
+float vmax[3];
 
 %}
 %union {
@@ -35,20 +34,22 @@ EXPRESSAO:
     }
     | STRING IGUAL STRING PRODUTO FATOR {
     	imagem I = abrir_imagem ($3);
+    	printf ("Fator float = %f\n", atof($5));
     	brilho_imagem (&I, atof($5));
     	salvar_imagem ($1, &I);
     	liberar_imagem (&I);
     }
     | STRING IGUAL STRING DIVISAO FATOR {
-    	imagem I = abrir_imagem ($3);    	
+    	imagem I = abrir_imagem ($3);
+    	printf ("Fator float = %f\n", 1/atof($5));    	
     	brilho_imagem (&I, 1/atof($5));
     	salvar_imagem ($1, &I);
     	liberar_imagem (&I);
     }    
     | ACOL STRING FCOL {
     	imagem I = abrir_imagem ($2);
-    	vmax = vmax_imagem (&I);
-    	printf ("Valor máximo: %.2f\n", vmax);
+    	vmax_imagem (&I, &vmax[0]);
+    	printf ("Valor máximo r: %.2f\nValor máximo g: %.2f\nValor máximo b: %.2f\n", vmax[0], vmax[1], vmax[2]);
     } 
 
     ;

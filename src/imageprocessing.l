@@ -25,7 +25,7 @@ void yyerror(char *);
 		yylval.strval[i] = yytext[i];
 	}
 	yylval.strval[yyleng] = '\0';
-	printf ("Achei fator: %s\n", yylval.strval);
+	printf ("Achei fator string: %s\n", yylval.strval);
 	return FATOR;
 }
 

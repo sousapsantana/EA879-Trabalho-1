@@ -781,7 +781,7 @@ YY_RULE_SETUP
 		yylval.strval[i] = yytext[i];
 	}
 	yylval.strval[yyleng] = '\0';
-	printf ("Achei fator: %s\n", yylval.strval);
+	printf ("Achei fator string: %s\n", yylval.strval);
 	return FATOR;
 }
 	YY_BREAK

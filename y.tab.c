@@ -68,14 +68,13 @@
 #include <stdlib.h>
 #include "imageprocessing.h"
 #include <FreeImage.h>
-#include <math.h>
 
 void yyerror(char *c);
 int yylex(void);
-float vmax;
+float vmax[3];
 
 
-#line 79 "y.tab.c" /* yacc.c:339  */
+#line 78 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -141,12 +140,12 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 13 "./src/imageprocessing.y" /* yacc.c:355  */
+#line 12 "./src/imageprocessing.y" /* yacc.c:355  */
 
   char    strval[50];
   int     ival;   
 
-#line 150 "y.tab.c" /* yacc.c:355  */
+#line 149 "y.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -163,7 +162,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 167 "y.tab.c" /* yacc.c:358  */
+#line 166 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -461,7 +460,7 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    24,    24,    25,    28,    29,    36,    42,    48
+       0,    23,    23,    24,    27,    28,    35,    42,    49
 };
 #endif
 
@@ -1234,7 +1233,7 @@ yyreduce:
   switch (yyn)
     {
         case 5:
-#line 29 "./src/imageprocessing.y" /* yacc.c:1646  */
+#line 28 "./src/imageprocessing.y" /* yacc.c:1646  */
     {
         printf("Copiando %s para %s\n", (yyvsp[0].strval), (yyvsp[-2].strval));
         imagem I = abrir_imagem((yyvsp[0].strval));
@@ -1242,13 +1241,14 @@ yyreduce:
         salvar_imagem((yyvsp[-2].strval), &I);
         liberar_imagem(&I);
     }
-#line 1246 "y.tab.c" /* yacc.c:1646  */
+#line 1245 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 36 "./src/imageprocessing.y" /* yacc.c:1646  */
+#line 35 "./src/imageprocessing.y" /* yacc.c:1646  */
     {
     	imagem I = abrir_imagem ((yyvsp[-2].strval));
+    	printf ("Fator float = %f\n", atof((yyvsp[0].strval)));
     	brilho_imagem (&I, atof((yyvsp[0].strval)));
     	salvar_imagem ((yyvsp[-4].strval), &I);
     	liberar_imagem (&I);
@@ -1259,26 +1259,27 @@ yyreduce:
   case 7:
 #line 42 "./src/imageprocessing.y" /* yacc.c:1646  */
     {
-    	imagem I = abrir_imagem ((yyvsp[-2].strval));    	
+    	imagem I = abrir_imagem ((yyvsp[-2].strval));
+    	printf ("Fator float = %f\n", 1/atof((yyvsp[0].strval)));    	
     	brilho_imagem (&I, 1/atof((yyvsp[0].strval)));
     	salvar_imagem ((yyvsp[-4].strval), &I);
     	liberar_imagem (&I);
     }
-#line 1268 "y.tab.c" /* yacc.c:1646  */
+#line 1269 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 48 "./src/imageprocessing.y" /* yacc.c:1646  */
+#line 49 "./src/imageprocessing.y" /* yacc.c:1646  */
     {
     	imagem I = abrir_imagem ((yyvsp[-1].strval));
-    	vmax = vmax_imagem (&I);
-    	printf ("Valor máximo: %.2f\n", vmax);
+    	vmax_imagem (&I, &vmax[0]);
+    	printf ("Valor máximo r: %.2f\nValor máximo g: %.2f\nValor máximo b: %.2f\n", vmax[0], vmax[1], vmax[2]);
     }
-#line 1278 "y.tab.c" /* yacc.c:1646  */
+#line 1279 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1282 "y.tab.c" /* yacc.c:1646  */
+#line 1283 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1506,7 +1507,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 56 "./src/imageprocessing.y" /* yacc.c:1906  */
+#line 57 "./src/imageprocessing.y" /* yacc.c:1906  */
 
 
 void yyerror(char *s) {
