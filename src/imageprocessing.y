@@ -39,8 +39,7 @@ EXPRESSAO:
     	liberar_imagem (&J);
     }
     | STRING IGUAL STRING DIVISAO FATOR {
-    	imagem I = abrir_imagem ($3);
-    	printf ("Fator float = %f\n", 1/atof($5));    	
+    	imagem I = abrir_imagem ($3); 	
     	brilho_imagem (&I, 1/atof($5));    	
     	salvar_imagem ($1, &I);    	
     	liberar_imagem (&I);
