@@ -33,16 +33,10 @@ EXPRESSAO:
         liberar_imagem(&I);
     }
     | STRING IGUAL STRING PRODUTO FATOR {
-    	imagem I = abrir_imagem ($3);
-    	printf ("Fator float = %f\n", atof($5));
-    	brilho_imagem (&I, atof($5));
-    	vmax_imagem (&I, &vmax[0]);
-    	printf ("Valor máximo r: %.2f\nValor máximo g: %.2f\nValor máximo b: %.2f\n", vmax[0], vmax[1], vmax[2]); 
-    	salvar_imagem ($1, &I);
-    	I = abrir_imagem ($1);
-    	vmax_imagem (&I, &vmax[0]);
-    	printf ("Valor máximo r: %.2f\nValor máximo g: %.2f\nValor máximo b: %.2f\n", vmax[0], vmax[1], vmax[2]);
-    	liberar_imagem (&I);
+    	imagem J = abrir_imagem ($3);
+    	brilho_imagem (&J, atof($5));
+    	salvar_imagem ($1, &J);
+    	liberar_imagem (&J);
     }
     | STRING IGUAL STRING DIVISAO FATOR {
     	imagem I = abrir_imagem ($3);

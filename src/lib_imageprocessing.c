@@ -83,13 +83,33 @@ void salvar_imagem(char *nome_do_arquivo, imagem *I) {
 void brilho_imagem (imagem *I, float fator) {
 
 	int i, j, idx;
+	float r, g, b;
 	
 	for (i=0; i<I->width; i++) {
 		for (j=0; j<I->height; j++){
 			idx = i + (j*I->width);
-			I->r[idx] = I->r[idx] * fator;
-			I->g[idx] = I->g[idx] * fator;
-			I->b[idx] = I->b[idx] * fator;			
+			r = I->r[idx] * fator;
+			g = I->g[idx] * fator;
+			b = I->b[idx] * fator;			
+			if  (r > 255){
+				I->r[idx] = 255;				
+			}
+			else {
+				I->r[idx] = r;
+			}
+			if (g > 255){
+				I->g[idx] =  255;
+			}
+			else {
+				I->g[idx] = g;
+			}
+			if (b > 255){
+				I->b[idx] = 255;
+			}
+			else {
+				I->b[idx] = b;
+			}		
+						
 		}
 	}
 }
